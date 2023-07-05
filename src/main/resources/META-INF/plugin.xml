@@ -1,0 +1,84 @@
+<idea-plugin>
+    <id>org.sfvl.doctesting.docAsTestPlugin</id>
+    <name>DocAsTestPlugin</name>
+    <vendor email="sfauvel@gmail.com" url="https://github.com/sfauvel">Sébastien Fauvel</vendor>
+
+    <description><![CDATA[
+    Allow to manipulate 'approvals' files (approved and received)
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <idea-version since-build="201" />
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="docAsTest.DocAsTestStartupActivity"/>
+    </extensions>
+
+    <actions>
+        <group id="DocAsTestActions" text="Doc as test" popup="true">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </group>
+
+        <action id="SwitchToJavaFileAction"
+                class="docAsTest.action.SwitchToJavaFileAction"
+                text="Switch to java file"
+                description="Switch to the test class or method related to the approved or the received file.">
+            <add-to-group group-id="DocAsTestActions" anchor="first"/>
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="control alt D"
+                    second-keystroke="J"/>
+        </action>
+        <action id="SwitchToApprovedFileAction"
+                class="docAsTest.action.SwitchToApprovedFileAction"
+                text="Switch to approved file"
+                description="Switch to the approved file related to the test class, the test method or the received file.">
+            <add-to-group group-id="DocAsTestActions" anchor="first"/>
+
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="control alt D"
+                    second-keystroke="A"/>
+        </action>
+        <action id="SwitchToReceivedFileAction"
+                class="docAsTest.action.SwitchToReceivedFileAction"
+                text="Switch to received file"
+
+                description="Switch to the received file related to the test class, the test method or the approved file.">
+            <add-to-group group-id="DocAsTestActions" anchor="first"/>
+
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="control alt D"
+                    second-keystroke="R"/>
+        </action>
+        <action id="ApproveFileAction"
+                class="docAsTest.action.ApproveFileAction"
+                text="Approve file"
+                description="Approve selected files or all the files contained in one or more selected folders.">
+            <add-to-group group-id="DocAsTestActions" anchor="first"/>
+
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="control alt D"
+                    second-keystroke="O"/>
+        </action>
+        <action id="CompareFileAction"
+                class="docAsTest.action.CompareFileAction"
+                text="Compare files"
+                description="Compare approved and received files related to the selected one or to the selected class or method.">
+            <add-to-group group-id="DocAsTestActions" anchor="first"/>
+
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="control alt D"
+                    second-keystroke="C"/>
+        </action>
+
+    </actions>
+</idea-plugin>
