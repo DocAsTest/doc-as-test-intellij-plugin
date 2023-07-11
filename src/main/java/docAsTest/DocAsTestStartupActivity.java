@@ -5,8 +5,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.startup.StartupActivity;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.search.GlobalSearchScope;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -21,15 +19,21 @@ public class DocAsTestStartupActivity implements StartupActivity {
     private static final Logger LOG = Logger.getInstance(DocAsTestStartupActivity.class);
     private static final String DOC_AS_TEST_PROPERTIES_FILENAME = "docAsTest.properties";
 
-    private static final String DEFAULT_SRC_PATH = "src/test/java";
-    private static final String DEFAULT_SRC_DOCS = "src/test/docs";
+    public static final String DEFAULT_SRC_PATH = "src/test/java";
+    public static final String DEFAULT_SRC_DOCS = "src/test/docs";
 
     public static String getSrcDocs() {
-        return properties.getProperty("DOC_PATH", DEFAULT_SRC_DOCS);
+        return getProperty("DOC_PATH", DEFAULT_SRC_DOCS);
     }
 
     public static String getSrcPath() {
-        return properties.getProperty("TEST_PATH", DEFAULT_SRC_PATH);
+        return getProperty("TEST_PATH", DEFAULT_SRC_PATH);
+    }
+
+    private static String getProperty(String key, String defaultValue) {
+        return properties == null
+                ? defaultValue
+                : properties.getProperty(key, defaultValue);
     }
 
     public static void setProperties(Properties properties) {

@@ -18,13 +18,25 @@ public class DocAsTestStartupActivityTest extends DocAsTestPlatformTestCase {
     @Test
     public void test_src_docs_has_default_value_when_no_property_file() throws Exception {
         new DocAsTestStartupActivity().runActivity(myFixture.getProject());
-        assertEquals("src/test/docs", DocAsTestStartupActivity.getSrcDocs());
+        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_DOCS, DocAsTestStartupActivity.getSrcDocs());
+        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_PATH, DocAsTestStartupActivity.getSrcPath());
+    }
+    @Test
+    public void test_src_docs_has_default_value_when_property_is_not_yet_created() throws Exception {
+        new DocAsTestStartupActivity().runActivity(myFixture.getProject());
+        DocAsTestStartupActivity.setProperties(null);
+        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_DOCS, DocAsTestStartupActivity.getSrcDocs());
+        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_PATH, DocAsTestStartupActivity.getSrcPath());
     }
 
     @Test
     public void test_load_property_file_on_startup() throws Exception {
-        final PsiFile propertyFile = myFixture.addFileToProject("docAsTest.properties", "DOC_PATH:src/doc/custom_folder");
+        final PsiFile propertyFile = myFixture.addFileToProject("docAsTest.properties",
+                String.join("\n",
+                        "DOC_PATH:src/doc/custom_folder",
+                        "TEST_PATH:src/code/test_folder"));
         new DocAsTestStartupActivity().runActivity(myFixture.getProject());
         assertEquals("src/doc/custom_folder", DocAsTestStartupActivity.getSrcDocs());
+        assertEquals("src/code/test_folder", DocAsTestStartupActivity.getSrcPath());
     }
 }
