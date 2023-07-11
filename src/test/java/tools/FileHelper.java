@@ -87,7 +87,7 @@ public class FileHelper {
     }
 
     public VirtualFile findOrCreate(final VirtualFile rootVirtualFile, Path path) {
-        WriteAction.computeAndWait(() -> {
+        final VirtualFile virtualFile = WriteAction.computeAndWait(() -> {
             try {
                 VirtualFile currentVirtualFile = rootVirtualFile;
                 for (Path folder : path) {
@@ -102,7 +102,7 @@ public class FileHelper {
                 throw new RuntimeException(e);
             }
         });
-        return rootVirtualFile.findFileByRelativePath(path.toString());
+        return virtualFile;
     }
 
 
