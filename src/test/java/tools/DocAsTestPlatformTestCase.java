@@ -5,6 +5,7 @@ import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.openapi.vfs.InvalidVirtualFileAccessException;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
@@ -50,12 +51,12 @@ public abstract class DocAsTestPlatformTestCase extends BasePlatformTestCase {
 
         try {
             VirtualFile vFile = WriteCommandAction.writeCommandAction(getProject()).compute(() -> {
-                final VirtualFile file;
+                
                 if (!(myFixture.getTempDirFixture() instanceof LightTempDirTestFixtureImpl)) {
                     throw new RuntimeException("Handle only LightTempDirTestFixtureImpl as TempDirFixture");
                 }
                 root.refresh(false, false);
-                file = root.findOrCreateChildData(this, fileName);
+                VirtualFile file = findOrCreateChildData(root, fileName);
                 assertNotNull(fileName + " not found in " + root.getPath(), file);
 
                 final Document document = FileDocumentManager.getInstance().getCachedDocument(file);
@@ -71,6 +72,18 @@ public abstract class DocAsTestPlatformTestCase extends BasePlatformTestCase {
             throw new RuntimeException(e);
         }
         return myFixture.getFile();
+    }
+
+    @NotNull
+    private VirtualFile findOrCreateChildData(@NotNull VirtualFile root, @NotNull String fileName) throws IOException {
+        try {
+            return root.findOrCreateChildData(this, fileName);
+        } catch (InvalidVirtualFileAccessException e) {
+            // Sometime, findOrCreateChildData throw an exception and the path need to be created.
+            // There is probabl a better way to do but we don't known how.
+            VirtualFile createdRoot = fileHelper.findOrCreate(Paths.get(root.getName()));
+            return createdRoot.findOrCreateChildData(this, fileName);
+        }
     }
 
     protected void assertExists(String filename) {

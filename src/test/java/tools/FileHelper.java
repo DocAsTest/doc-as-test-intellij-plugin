@@ -102,7 +102,7 @@ public class FileHelper {
                 throw new RuntimeException(e);
             }
         });
-        return virtualFile;
+        return rootVirtualFile.findFileByRelativePath(path.toString());
     }
 
 
