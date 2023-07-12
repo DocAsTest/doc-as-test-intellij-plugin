@@ -1,1 +1,2 @@
 rootProject.name = 'doc-as-test-intellij-plugin'
+version = 1.1.6-SNAPSHOT
