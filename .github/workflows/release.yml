@@ -28,8 +28,13 @@ jobs:
 
       # Build release
       - name: Export Properties
-        shell: bash
-        run: ./gradlew release -Prelease.useAutomaticVersion=true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+        
+          ./gradlew release -Prelease.useAutomaticVersion=true
 
 
       # Set environment variables
