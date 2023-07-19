@@ -26,16 +26,20 @@ jobs:
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
           ./gradlew release -Prelease.useAutomaticVersion=true
-
-      - name: Create Release # This action will create the actual release
-        uses: actions/create-release@v1
-#        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+            # Upload artifact as a release asset
+      - name: Upload Release Asset
         env:
-            GITHUB_TOKEN: ${{ secrets.github_token }}
-        with:
-            tag_name: ${{ steps.changelog.outputs.tag }}
-            release_name: ${{ steps.changelog.outputs.tag }}
-            body: ${{ steps.changelog.outputs.clean_changelog }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ github.event.release.tag_name }} ./build/libs/*
+#      - name: Publish Release # This action will create the actual release
+#        uses: actions/create-release@v1
+##        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+#        env:
+#            GITHUB_TOKEN: ${{ secrets.github_token }}
+#        with:
+#            tag_name: ${{ steps.changelog.outputs.tag }}
+#            release_name: ${{ steps.changelog.outputs.tag }}
+#            body: ${{ steps.changelog.outputs.clean_changelog }}
 #
 #name: Release
 #
