@@ -32,7 +32,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           last_release_tag=`git describe --abbrev=0 --tags`
-          gh release upload ${{ last_release_tag }} ./build/libs/*
+          echo "Last release tag: $last_release_tag"
+          gh release upload $last_release_tag ./build/libs/*
 #      - name: Publish Release # This action will create the actual release
 #        uses: actions/create-release@v1
 ##        if: ${{ steps.changelog.outputs.skipped == 'false' }}
