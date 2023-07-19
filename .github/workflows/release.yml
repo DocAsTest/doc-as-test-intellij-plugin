@@ -19,14 +19,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Configure Git user
-        run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions"
       - name: Prepare Release
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
         run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
           ./gradlew release -Prelease.useAutomaticVersion=true
 
       - name: Create Release # This action will create the actual release
