@@ -58,3 +58,6 @@ publishing {
         }
     }
 }
+release {
+    buildTasks = ["build"]
+}
