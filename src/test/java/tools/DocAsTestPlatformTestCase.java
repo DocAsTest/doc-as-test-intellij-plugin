@@ -76,14 +76,7 @@ public abstract class DocAsTestPlatformTestCase extends BasePlatformTestCase {
 
     @NotNull
     private VirtualFile findOrCreateChildData(@NotNull VirtualFile root, @NotNull String fileName) throws IOException {
-        try {
-            return root.findOrCreateChildData(this, fileName);
-        } catch (InvalidVirtualFileAccessException e) {
-            // Sometime, findOrCreateChildData throw an exception and the path need to be created.
-            // There is probabl a better way to do but we don't known how.
-            VirtualFile createdRoot = fileHelper.findOrCreate(Paths.get(root.getName()));
-            return createdRoot.findOrCreateChildData(this, fileName);
-        }
+        return root.findOrCreateChildData(this, fileName);
     }
 
     protected void assertExists(String filename) {

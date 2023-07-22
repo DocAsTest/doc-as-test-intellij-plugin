@@ -87,22 +87,38 @@ public class FileHelper {
     }
 
     public VirtualFile findOrCreate(final VirtualFile rootVirtualFile, Path path) {
+
         final VirtualFile virtualFile = WriteAction.computeAndWait(() -> {
             try {
-                VirtualFile currentVirtualFile = rootVirtualFile;
-                for (Path folder : path) {
-                    final VirtualFile existingVirtualFile = currentVirtualFile.findFileByRelativePath(folder.toString());
-                    currentVirtualFile = existingVirtualFile != null
-                            ? existingVirtualFile
-                            : currentVirtualFile.createChildDirectory(this, folder.toString());
-                    //System.out.println("SetupWithDescriptorFactoryTest.findOrCreate " + currentVirtualFile);
+                for (int i = 0; i < 3; i++) {
+                    VirtualFile currentVirtualFile = getVirtualFileForPath(rootVirtualFile, path);
+                    if (currentVirtualFile != null) {
+                        return currentVirtualFile;
+                    }
                 }
-                return currentVirtualFile;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            throw new RuntimeException("Not able to create path: " + path);
         });
-        return rootVirtualFile.findFileByRelativePath(path.toString());
+
+        return virtualFile;
+    }
+
+    private VirtualFile getVirtualFileForPath(VirtualFile rootVirtualFile, Path path) throws IOException {
+        VirtualFile currentVirtualFile = rootVirtualFile;
+        for (Path folder : path) {
+            currentVirtualFile.refresh(false, true); // Needed to see the last path created in the loop.
+            if (!currentVirtualFile.isValid()) {
+                System.out.println(folder + " is not valid, retry...");
+                return null;
+            }
+            final VirtualFile existingVirtualFile = currentVirtualFile.findFileByRelativePath(folder.toString());
+            currentVirtualFile = existingVirtualFile != null
+                    ? existingVirtualFile
+                    : currentVirtualFile.createChildDirectory(this, folder.toString());
+        }
+        return currentVirtualFile;
     }
 
 
