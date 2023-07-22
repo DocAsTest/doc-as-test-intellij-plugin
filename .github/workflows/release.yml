@@ -28,7 +28,7 @@ jobs:
           ./gradlew release -Prelease.useAutomaticVersion=true
           last_release_tag=`git describe --abbrev=0 --tags`
           echo "Last release tag: $last_release_tag"
-          gh release upload $last_release_tag ./build/libs/*
+          gh release create $last_release_tag ./build/libs/*
       # Upload artifact as a release asset
 #      - name: Upload Release Asset
 #        env:
