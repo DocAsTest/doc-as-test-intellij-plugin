@@ -6,8 +6,6 @@
 
 ### Changed
 
-- Update to the 1.2.0
-
 ### Deprecated
 
 ### Removed
@@ -15,6 +13,11 @@
 ### Fixed
 
 ### Security
+
+## 1.2.0 - 2023-07-24
+
+### Changed
+- Update to the 1.2.0
 
 ## 1.1.24 - 2023-07-24
 
