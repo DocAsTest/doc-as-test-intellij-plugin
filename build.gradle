@@ -4,6 +4,8 @@ plugins {
     id 'maven-publish'
     // https://github.com/researchgate/gradle-release
     id 'net.researchgate.release' version '3.0.2'
+    // https://github.com/JetBrains/gradle-changelog-plugin/
+    id 'org.jetbrains.changelog' version '2.1.2'
 }
 
 group 'org.sfvl.doctesting'
@@ -59,5 +61,5 @@ publishing {
     }
 }
 release {
-    buildTasks = ["build"]
+    buildTasks = ["patchChangelog", "build"]
 }
