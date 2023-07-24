@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Update to the 1.2.0
+
 ### Deprecated
 
 ### Removed
