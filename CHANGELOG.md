@@ -4,6 +4,8 @@
 
 ### Added
 
+- Publish release note on Github
+
 ### Changed
 
 ### Deprecated
