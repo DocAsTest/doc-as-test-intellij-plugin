@@ -1,4 +1,4 @@
-name: GitHub Pages Publish
+name: GitHub Build Test and publish
 
 on:
   push:
