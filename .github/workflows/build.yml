@@ -42,5 +42,5 @@ jobs:
           adoc_file_ext: .adoc
           source_dir: src/test/docs
           # slides_build: true
-          # pre_build: python pre_build.py
+          pre_build: python pre_build.py
           # post_build:
