@@ -1,5 +1,7 @@
 = IntelliJ Plugin
 
+// tag::description[]
+
 This plugin provide some automation to approve files from Approvals.
 
 Key features:
@@ -12,6 +14,8 @@ Key features:
 This plugin is a beta version.
 You can find the link:https://github.com/DocAsTest/doc-as-test-intellij-plugin/releases/latest[last release] in the repository.
 The plugin is not in the marketplace, so you have to deploy it to your IntelliJ from .jar you downloaded.
+
+// end::description[]
 
 == Development
 

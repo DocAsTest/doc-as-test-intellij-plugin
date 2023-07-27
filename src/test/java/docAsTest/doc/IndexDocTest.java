@@ -32,17 +32,7 @@ public class IndexDocTest extends ApprovalsJUnit4 {
     @NoTitle
     public void test_content() {
         write(
-                "This plugin improve the user experience developing with DocAsTest.",
-                "",
-                "Features are:",
-                formatter.listItems(
-                        "Approved one or more files",
-                        "Switch between `Java`, `approved` and `received` files",
-                        "Compare `approved` and `received` files"
-                ),
-                "",
-                "Those features are accessible from contextual menu of the project explorer or from the editor.",
-                "",
+                "include::../../../{ROOT_PATH}/README.adoc[tag=description]",
                 ""
         );
         write(formatter.include(approvedDocPathStringFrom(ShortCutTest.class, this.getClass())));
