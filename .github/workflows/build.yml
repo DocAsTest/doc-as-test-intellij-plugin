@@ -25,6 +25,7 @@ jobs:
         ./gradlew test
 
   publish_site:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
