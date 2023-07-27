@@ -148,6 +148,7 @@ public class MockActionOnFileEvent extends MockActionEvent {
     public void performAction(DocAsTestAction action, List<? extends PsiFileSystemItem> psiItems) {
         DocAsTestFilenameIndex.setSlowOperationPolicy(DocAsTestPlatformTestCase.SLOW_OPERATION_ALLOWED);
         action.setUndoConfirmationPolicy(UndoConfirmationPolicy.DO_NOT_REQUEST_CONFIRMATION);
+        action.setApplicationInUnitTestOrHeadless(true);
 
         // performAction call update and actionPerformed with the same dataContext
         // with the one that is send on the second call used in update method.

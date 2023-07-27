@@ -34,6 +34,8 @@ public abstract class DocAsTestAction extends AnAction {
 
     private boolean traceActionEvent = false;
 
+    private boolean applicationInUnitTestOrHeadless = false;
+
     public void setTraceActionEvent(boolean traceActionEvent) {
         this.traceActionEvent = traceActionEvent;
     }
@@ -44,6 +46,14 @@ public abstract class DocAsTestAction extends AnAction {
 
     public String getSrcPath() {
         return DocAsTestStartupActivity.getSrcPath();
+    }
+
+    protected boolean isApplicationInUnitTestOrHeadless() {
+        return applicationInUnitTestOrHeadless;
+    }
+
+    public void setApplicationInUnitTestOrHeadless(boolean applicationInUnitTestOrHeadless) {
+        this.applicationInUnitTestOrHeadless = applicationInUnitTestOrHeadless;
     }
 
     protected void traceActionEvent(AnActionEvent actionEvent) {

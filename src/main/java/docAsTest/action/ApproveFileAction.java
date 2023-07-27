@@ -1,6 +1,7 @@
 package docAsTest.action;
 
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.project.Project;
@@ -52,7 +53,7 @@ public class ApproveFileAction extends DocAsTestAction {
 
         CommandProcessor.getInstance().executeCommand(
                 actionEvent.getProject(),
-                new ApprovedRunnable(actionEvent.getProject(), actionEventData),
+                new ApprovedRunnable(actionEvent.getProject(), actionEventData, isApplicationInUnitTestOrHeadless()),
                 getApproveActionName(actionEventData),
                 "Approvals",
                 getUndoConfirmationPolicy());
@@ -69,16 +70,13 @@ public class ApproveFileAction extends DocAsTestAction {
 
     static class ApprovedRunnable implements Runnable {
         private final List<VirtualFile> virtualFiles;
+        private final boolean isApplicationInUnitTestOrHeadless;
         private final Project project;
 
-        public ApprovedRunnable(Project project, VirtualFile virtualFile) {
-            this.project = project;
-            this.virtualFiles = Arrays.asList(virtualFile);
-        }
-
-        public ApprovedRunnable(Project project, VirtualFile[] virtualFiles) {
+        public ApprovedRunnable(Project project, VirtualFile[] virtualFiles, boolean isApplicationInUnitTestOrHeadless) {
             this.project = project;
             this.virtualFiles = Arrays.asList(virtualFiles);
+            this.isApplicationInUnitTestOrHeadless = isApplicationInUnitTestOrHeadless;
         }
 
         private void addReceivedFiles(List<VirtualFile> receivedFiles, VirtualFile virtualFile) {
@@ -107,7 +105,7 @@ public class ApproveFileAction extends DocAsTestAction {
         private void approveReceivedFiles() {
             List<VirtualFile> filesToRename = getReceivedFiles(virtualFiles);
 
-            if (!Messages.isApplicationInUnitTestOrHeadless()) {
+            if (!isApplicationInUnitTestOrHeadless) {
                 int result = Messages.showYesNoDialog(project, "You will approved " + filesToRename.size() + " files.\nDo you want to continue ?", "Approvals", Messages.getQuestionIcon());
                 if (result == Messages.NO) {
                     return;
