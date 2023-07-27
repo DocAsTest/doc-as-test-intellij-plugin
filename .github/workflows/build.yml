@@ -40,7 +40,7 @@ jobs:
           asciidoctor_params: --attribute=htmlformat
           #asciidoctor_params: --attribute=nofooter --attribute=htmlformat
           adoc_file_ext: .adoc
-          source_dir: src/test/docs
+          source_dir: .
           # slides_build: true
-          pre_build: python pre_build.py
+          # pre_build: python pre_build.py
           # post_build:
