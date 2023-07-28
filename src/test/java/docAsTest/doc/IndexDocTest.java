@@ -32,7 +32,7 @@ public class IndexDocTest extends ApprovalsJUnit4 {
     @NoTitle
     public void test_content() {
         write(
-                "include::{ROOT_PATH}/../../../README.adoc[tag=description]",
+                "include::../../../../../README.adoc[tag=description]",
                 ""
         );
         write(formatter.include(approvedDocPathStringFrom(ShortCutTest.class, this.getClass())));

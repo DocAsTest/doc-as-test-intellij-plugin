@@ -1,5 +1,5 @@
 ifndef::ROOT_PATH[:ROOT_PATH: ../..]
 
-include::{ROOT_PATH}/../../../README.adoc[tag=description]
+include::../../../../../README.adoc[tag=description]
 include::_ShortCutTest.approved.adoc[]
 
