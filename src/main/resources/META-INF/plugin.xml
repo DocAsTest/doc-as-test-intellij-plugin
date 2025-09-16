@@ -15,7 +15,7 @@
     <idea-version since-build="222" />
 
     <extensions defaultExtensionNs="com.intellij">
-        <postStartupActivity implementation="docAsTest.DocAsTestStartupActivity"/>
+          <projectService serviceImplementation="docAsTest.DocAsTestStartupActivity"/>
     </extensions>
 
     <actions>

@@ -17,16 +17,16 @@ public class DocAsTestStartupActivityTest extends DocAsTestPlatformTestCase {
 
     @Test
     public void test_src_docs_has_default_value_when_no_property_file() throws Exception {
-        new DocAsTestStartupActivity().runActivity(myFixture.getProject());
-        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_DOCS, DocAsTestStartupActivity.getSrcDocs());
-        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_PATH, DocAsTestStartupActivity.getSrcPath());
+        //new DocAsTestStartupActivity().runActivity(myFixture.getProject());
+        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_DOCS, DocAsTestStartupActivity.getSrcDocs(this.getProject()));
+        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_PATH, DocAsTestStartupActivity.getSrcPath(this.getProject()));
     }
     @Test
     public void test_src_docs_has_default_value_when_property_is_not_yet_created() throws Exception {
-        new DocAsTestStartupActivity().runActivity(myFixture.getProject());
+        //new DocAsTestStartupActivity().runActivity(myFixture.getProject());
         DocAsTestStartupActivity.setProperties(null);
-        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_DOCS, DocAsTestStartupActivity.getSrcDocs());
-        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_PATH, DocAsTestStartupActivity.getSrcPath());
+        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_DOCS, DocAsTestStartupActivity.getSrcDocs(this.getProject()));
+        assertEquals(DocAsTestStartupActivity.DEFAULT_SRC_PATH, DocAsTestStartupActivity.getSrcPath(this.getProject()));
     }
 
     @Test
@@ -35,8 +35,8 @@ public class DocAsTestStartupActivityTest extends DocAsTestPlatformTestCase {
                 String.join("\n",
                         "DOC_PATH:src/doc/custom_folder",
                         "TEST_PATH:src/code/test_folder"));
-        new DocAsTestStartupActivity().runActivity(myFixture.getProject());
-        assertEquals("src/doc/custom_folder", DocAsTestStartupActivity.getSrcDocs());
-        assertEquals("src/code/test_folder", DocAsTestStartupActivity.getSrcPath());
+        DocAsTestStartupActivity.loadProperties(myFixture.getProject());
+        assertEquals("src/doc/custom_folder", DocAsTestStartupActivity.getSrcDocs(this.getProject()));
+        assertEquals("src/code/test_folder", DocAsTestStartupActivity.getSrcPath(this.getProject()));
     }
 }

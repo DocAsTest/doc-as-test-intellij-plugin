@@ -1,5 +1,6 @@
 package docAsTest.action;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
@@ -19,6 +20,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class ApproveFileAction extends DocAsTestAction {
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
+    }
 
     @Override
     public void update(AnActionEvent actionEvent) {

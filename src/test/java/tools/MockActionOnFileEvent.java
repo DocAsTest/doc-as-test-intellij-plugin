@@ -178,6 +178,7 @@ public class MockActionOnFileEvent extends MockActionEvent {
 
         action.update(this);
         action.actionPerformed(this);
+
     }
 
 }

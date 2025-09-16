@@ -44,14 +44,14 @@ public class SwitchToJavaFileAction extends SwitchAction {
         return Optional.of(new SwitchToJavaFileAction.ApprovedRunnable(actionEvent.getProject(), javaFileOptional.get()));
     }
 
-    public Optional<Path> getJavaFilePath(Path projectPath, VirtualFile file) {
+    public Optional<Path> getJavaFilePath(Project project, Path projectPath, VirtualFile file) {
 
-        final Optional<FileBuilder> fileBuilder = FileBuilder.extractFileInfo(projectPath, file, getSrcDocs());
+        final Optional<FileBuilder> fileBuilder = FileBuilder.extractFileInfo(projectPath, file, getSrcDocs(project));
 
         return fileBuilder.flatMap(fileBuilderGet ->
                 ApprovalFile.valueOf(fileBuilderGet.packagePath.orElse("") + fileBuilderGet.filePath)
                         .map(approvalFile -> approvalFile.toJava())
-                        .map(javaFile -> new FullApprovalFilePath(Paths.get(fileBuilderGet.projectRootPath), Paths.get(getSrcPath()), javaFile))
+                        .map(javaFile -> new FullApprovalFilePath(Paths.get(fileBuilderGet.projectRootPath), Paths.get(getSrcPath(project)), javaFile))
                         .map(FullApprovalFilePath::fullPath));
     }
 
@@ -113,9 +113,9 @@ public class SwitchToJavaFileAction extends SwitchAction {
             return Optional.empty();
         }
 
-        final Optional<Path> javaFilePath = getJavaFilePath(Paths.get(getProjectBasePath(project)), virtualFile);
+        final Optional<Path> javaFilePath = getJavaFilePath(project, Paths.get(getProjectBasePath(project)), virtualFile);
 
-        Path pathFromDocPath = Paths.get(getProjectBasePath(project)).resolve(getSrcDocs()).relativize(Paths.get(virtualFile.getPath()));
+        Path pathFromDocPath = Paths.get(getProjectBasePath(project)).resolve(getSrcDocs(project)).relativize(Paths.get(virtualFile.getPath()));
 
         final Optional<JavaFile> javaFile = ApprovalFile.valueOf(pathFromDocPath.toString())
                 .map(ApprovalFile::toJava);

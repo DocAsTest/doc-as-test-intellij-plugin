@@ -63,7 +63,9 @@ public class SwitchToJavaFileActionTest extends DocAsTestPlatformTestCase {
         properties.setProperty("TEST_PATH", "src");
         // We are not able to put a file outside of /src for now so we put docs folder in src.
         properties.setProperty("DOC_PATH", "src/docs");
-        DocAsTestStartupActivity.setProperties(properties);
+        // TODO: this initialization is a hack (overwrite loaded properties).
+        DocAsTestStartupActivity.getSrcDocs(myFixture.getProject()); // Init Service.
+        DocAsTestStartupActivity.setProperties(properties); // Overwrite properties loaded
 
         actionEvent = new MockActionOnFileEvent(myFixture);
         presentation = actionEvent.getPresentation();
@@ -283,7 +285,7 @@ public class SwitchToJavaFileActionTest extends DocAsTestPlatformTestCase {
     @Test
     public void test_java_file_path_from_approved_file() throws IOException {
         final VirtualFile approvedFile = fileHelper.createFile("/myproject/src/docs/_MyClass.approved.adoc");
-        Optional<Path> javaFilePath = actionJavaUnderTest.getJavaFilePath(Paths.get("/src/myproject"), approvedFile);
+        Optional<Path> javaFilePath = actionJavaUnderTest.getJavaFilePath(this.getProject(), Paths.get("/src/myproject"), approvedFile);
 
         assertEquals("/src/myproject/src/MyClass.java", javaFilePath.map(Path::toString).get());
     }
@@ -291,7 +293,7 @@ public class SwitchToJavaFileActionTest extends DocAsTestPlatformTestCase {
     @Test
     public void test_java_file_path_from_approved_file_with_subproject() throws IOException {
         final VirtualFile approvedFile = fileHelper.createFile("/myproject/subproject/src/docs/_MyClass.approved.adoc");
-        Optional<Path> javaFilePath = actionJavaUnderTest.getJavaFilePath(Paths.get("/"), approvedFile);
+        Optional<Path> javaFilePath = actionJavaUnderTest.getJavaFilePath(this.getProject(), Paths.get("/"), approvedFile);
 
         assertEquals("/src/myproject/subproject/src/MyClass.java", javaFilePath.map(Path::toString).get());
     }
@@ -300,7 +302,7 @@ public class SwitchToJavaFileActionTest extends DocAsTestPlatformTestCase {
     public void test_java_file_path_from_approved_file_with_package() throws IOException {
         // Files are created under /src
         final VirtualFile approvedFile = fileHelper.createFile("docs/org/demo/_MyClass.approved.adoc");
-        Optional<Path> javaFilePath = actionJavaUnderTest.getJavaFilePath(Paths.get("/"), approvedFile);
+        Optional<Path> javaFilePath = actionJavaUnderTest.getJavaFilePath(this.getProject(), Paths.get("/"), approvedFile);
 
         assertEquals("/src/org/demo/MyClass.java", javaFilePath.map(Path::toString).get());
     }
@@ -314,7 +316,7 @@ public class SwitchToJavaFileActionTest extends DocAsTestPlatformTestCase {
         DocAsTestStartupActivity.setProperties(properties);
 
         final VirtualFile approvedFile = fileHelper.createFile("myproject/src/test/docs/org/demo/_MyClass.approved.adoc");
-        Optional<Path> javaFilePath = actionJavaUnderTest.getJavaFilePath(Paths.get("/"), approvedFile);
+        Optional<Path> javaFilePath = actionJavaUnderTest.getJavaFilePath(this.getProject(), Paths.get("/"), approvedFile);
 
         assertEquals("/src/myproject/src/test/java/org/demo/MyClass.java", javaFilePath.map(Path::toString).get());
     }
@@ -322,7 +324,7 @@ public class SwitchToJavaFileActionTest extends DocAsTestPlatformTestCase {
     @Test
     public void test_no_java_file_path_from_a_non_approved_file() throws IOException {
         final VirtualFile approvedFile = fileHelper.createFile("docs/org/demo/_MyClass.something.adoc");
-        Optional<Path> javaFilePath = actionJavaUnderTest.getJavaFilePath(Paths.get("/"), approvedFile);
+        Optional<Path> javaFilePath = actionJavaUnderTest.getJavaFilePath(this.getProject(), Paths.get("/"), approvedFile);
 
         assertEquals(false, javaFilePath.isPresent());
     }

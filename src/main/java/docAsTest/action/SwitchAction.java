@@ -1,9 +1,8 @@
 package docAsTest.action;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.UpdateInBackground;
 import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
 import docAsTest.DocAsTestAction;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +26,11 @@ public abstract class SwitchAction extends DocAsTestAction {
 
 
     protected abstract String getMenuText();
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
+    }
 
     @Override
     public void update(AnActionEvent actionEvent) {

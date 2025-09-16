@@ -40,12 +40,12 @@ public abstract class DocAsTestAction extends AnAction {
         this.traceActionEvent = traceActionEvent;
     }
 
-    public String getSrcDocs() {
-        return DocAsTestStartupActivity.getSrcDocs();
+    public String getSrcDocs(Project project) {
+        return DocAsTestStartupActivity.getSrcDocs(project);
     }
 
-    public String getSrcPath() {
-        return DocAsTestStartupActivity.getSrcPath();
+    public String getSrcPath(Project project) {
+        return DocAsTestStartupActivity.getSrcPath(project);
     }
 
     protected boolean isApplicationInUnitTestOrHeadless() {
@@ -161,7 +161,7 @@ public abstract class DocAsTestAction extends AnAction {
                 : approvalFileFromMethod(element, packageName, clazzOfElement);
 
         final Path approvedFilePath = Paths.get(getProjectBasePath(project))
-                .resolve(getSrcDocs())
+                .resolve(getSrcDocs(project))
                 .resolve(approvalFile.to(approvalType).getName());
         return approvedFilePath;
     }

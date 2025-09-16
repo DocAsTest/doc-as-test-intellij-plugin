@@ -78,7 +78,7 @@ public class SwitchToJavaFileActionCustomerFolderTest extends DocAsTestPlatformT
         final PsiFile propertyFile = myFixture.addFileToProject("docAsTest.properties",
                 properties
         );
-        new DocAsTestStartupActivity().runActivity(myFixture.getProject());
+        //new DocAsTestStartupActivity().runActivity(myFixture.getProject());
 
         myFixture.addFileToProject("MyClass.java", CodeGenerator.generateCode(CaretOn.NONE));
         final PsiFile approvedFile = configureByText(

@@ -1,6 +1,8 @@
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '1.13.3'
+    id 'org.jetbrains.intellij.platform' version '2.9.0'
     id 'maven-publish'
     // https://github.com/researchgate/gradle-release
     id 'net.researchgate.release' version '3.0.2'
@@ -8,16 +10,25 @@ plugins {
     id 'org.jetbrains.changelog' version '2.1.2'
 }
 
-group 'org.sfvl.doctesting'
+group = "org.sfvl.doctesting"
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
     flatDir {
         dirs 'lib' // Only for documentationtesting while waiting for it to be in Maven central.
     }
 }
 
 dependencies {
+    intellijPlatform {
+        intellijIdeaCommunity '2025.2.1'
+        bundledPlugin 'com.intellij.java'
+
+        testFramework TestFrameworkType.Platform.INSTANCE
+    }
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:2.1.0'
     testImplementation 'org.sfvl:documentationtesting:1.2.0'
@@ -28,15 +39,8 @@ dependencies {
     testImplementation 'com.github.javaparser:javaparser-core:3.24.7'
 }
 
-// See https://github.com/JetBrains/gradle-intellij-plugin/
-intellij {
-    version = '2022.2.5'
-    plugins = ['com.intellij.java']
-    updateSinceUntilBuild = false
-}
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
-
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
 
 patchPluginXml {
     changeNotes = """

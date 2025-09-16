@@ -53,8 +53,9 @@ public class SwitchToApprovedFileActionCustomFolderTest extends DocAsTestPlatfor
     protected void setUp() throws Exception {
         DocAsTestFilenameIndex.setSlowOperationPolicy(DocAsTestPlatformTestCase.NO_SLOW_OPERATION_POLICY);
         super.setUp();
-        DocAsTestStartupActivity.reset();
-        new DocAsTestStartupActivity().runActivity(myFixture.getProject());
+
+        //DocAsTestStartupActivity.reset();
+        //new DocAsTestStartupActivity().runActivity(myFixture.getProject());
 
         actionEvent = new MockActionOnFileEvent(myFixture);
         presentation = actionEvent.getPresentation();
@@ -67,7 +68,7 @@ public class SwitchToApprovedFileActionCustomFolderTest extends DocAsTestPlatfor
 
 
         final PsiFile propertyFile = myFixture.addFileToProject("docAsTest.properties", "DOC_PATH:src/" + CUSTOM_DOC_FOLDER);
-        new DocAsTestStartupActivity().runActivity(myFixture.getProject());
+       // new DocAsTestStartupActivity().runActivity(myFixture.getProject());
 
     }
 

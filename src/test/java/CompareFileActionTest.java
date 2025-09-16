@@ -59,7 +59,9 @@ public class CompareFileActionTest extends DocAsTestPlatformTestCase {
         properties.setProperty("TEST_PATH", "src");
         // We are not able to put a file outside of /src for now so we put docs folder in src.
         properties.setProperty("DOC_PATH", "src/docs");
-        DocAsTestStartupActivity.setProperties(properties);
+        // TODO: this initialization is a hack (overwrite loaded properties).
+        DocAsTestStartupActivity.getSrcDocs(myFixture.getProject()); // Init Service.
+        DocAsTestStartupActivity.setProperties(properties); // Overwrite properties loaded
     }
 
     @Test

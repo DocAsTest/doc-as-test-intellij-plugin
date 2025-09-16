@@ -1,0 +1,45 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "github:NixOS/nixpkgs/nixpkgs-unstable": {
+      "last_modified": "2025-09-14T09:47:56Z",
+      "resolved": "github:NixOS/nixpkgs/af745796c2755d6f3a6d835967862184d53a17ff?lastModified=1757843276"
+    },
+    "jdk@21": {
+      "last_modified": "2024-06-12T20:55:33Z",
+      "resolved": "github:NixOS/nixpkgs/a9858885e197f984d92d7fe64e9fff6b2e488d40#jdk",
+      "source": "devbox-search",
+      "version": "21+35",
+      "systems": {
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/f7risq9mlz4gywxr65v46h4mv1a4a0s3-openjdk-21+35",
+              "default": true
+            },
+            {
+              "name": "debug",
+              "path": "/nix/store/lgljxsffciqlijp38iklrh1ki5vi0y4f-openjdk-21+35-debug"
+            }
+          ],
+          "store_path": "/nix/store/f7risq9mlz4gywxr65v46h4mv1a4a0s3-openjdk-21+35"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/bk3x3ia7gxqic1jgr3dz05gwi8zw671y-openjdk-21+35",
+              "default": true
+            },
+            {
+              "name": "debug",
+              "path": "/nix/store/2h6zm6qy04amw9mvir8n5fifn99dzg16-openjdk-21+35-debug"
+            }
+          ],
+          "store_path": "/nix/store/bk3x3ia7gxqic1jgr3dz05gwi8zw671y-openjdk-21+35"
+        }
+      }
+    }
+  }
+}

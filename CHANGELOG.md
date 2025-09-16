@@ -14,6 +14,12 @@
 
 ### Security
 
+## 1.3.0 - 2025-09-16
+
+### Changed
+- Upgrade plugin to run with intellij 2025.2.1 and JDK 21
+- Add a Devbox configuration
+
 ## 1.2.0 - 2023-07-24
 
 ### Changed

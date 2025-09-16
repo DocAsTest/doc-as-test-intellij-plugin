@@ -1,5 +1,7 @@
 package docAsTest;
 
+import com.intellij.openapi.components.ComponentManager;
+import com.intellij.openapi.components.Service;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectRootManager;
@@ -9,12 +11,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.annotation.Annotation;
 import java.util.Properties;
 
 // https://plugins.jetbrains.com/docs/intellij/plugin-components.html?from=jetbrains.org#project-open
 // https://plugins.jetbrains.com/docs/intellij/ide-infrastructure.html#running-tasks-once
 
-public class DocAsTestStartupActivity implements StartupActivity {
+@Service(Service.Level.PROJECT)
+public final class DocAsTestStartupActivity {
 
     private static final Logger LOG = Logger.getInstance(DocAsTestStartupActivity.class);
     private static final String DOC_AS_TEST_PROPERTIES_FILENAME = "docAsTest.properties";
@@ -22,11 +26,23 @@ public class DocAsTestStartupActivity implements StartupActivity {
     public static final String DEFAULT_SRC_PATH = "src/test/java";
     public static final String DEFAULT_SRC_DOCS = "src/test/docs";
 
-    public static String getSrcDocs() {
+    //public static String getSrcDocs() {
+    //    return getProperty("DOC_PATH", DEFAULT_SRC_DOCS);
+    //}
+
+    public static String getSrcDocs(Project project) {
+        DocAsTestStartupActivity projectService =
+                project.getService(DocAsTestStartupActivity.class);
         return getProperty("DOC_PATH", DEFAULT_SRC_DOCS);
     }
 
-    public static String getSrcPath() {
+    //public static String getSrcPath() {
+    //    return getProperty("TEST_PATH", DEFAULT_SRC_PATH);
+    //}
+
+    public static String getSrcPath(Project project) {
+        DocAsTestStartupActivity projectService =
+                project.getService(DocAsTestStartupActivity.class);
         return getProperty("TEST_PATH", DEFAULT_SRC_PATH);
     }
 
@@ -46,13 +62,16 @@ public class DocAsTestStartupActivity implements StartupActivity {
         properties = null;
     }
 
-    @Override
-    public void runActivity(@NotNull Project project) {
-        LOG.info("Initialize DocAsTest plugin on project:" + project.getName());
+    DocAsTestStartupActivity(Project project) {
         loadProperties(project);
-        LOG.info("Test path: " + getSrcPath());
-        LOG.info("Doc path : " + getSrcDocs());
     }
+   // @Override
+    //public void runActivity(@NotNull Project project) {
+    //    LOG.info("Initialize DocAsTest plugin on project:" + project.getName());
+    //    loadProperties(project);
+    //    LOG.info("Test path: " + getSrcPath());
+    //    LOG.info("Doc path : " + getSrcDocs());
+    //}
 
     public static void loadProperties(Project project) {
         LOG.debug("project: " + project.getName());
@@ -74,5 +93,6 @@ public class DocAsTestStartupActivity implements StartupActivity {
             e.printStackTrace();
         }
     }
+
 
 }

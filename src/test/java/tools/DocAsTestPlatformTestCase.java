@@ -10,6 +10,7 @@ import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
+import com.intellij.testFramework.LightProjectDescriptor;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import com.intellij.testFramework.fixtures.impl.CodeInsightTestFixtureImpl;
 import com.intellij.testFramework.fixtures.impl.LightTempDirTestFixtureImpl;
@@ -36,9 +37,11 @@ public abstract class DocAsTestPlatformTestCase extends BasePlatformTestCase {
 
     @Override
     protected void setUp() throws Exception {
-        DocAsTestStartupActivity.reset();
+      //  DocAsTestStartupActivity.reset();
         DocAsTestFilenameIndex.setSlowOperationPolicy(SLOW_OPERATION_ALLOWED);
         super.setUp();
+        //DocAsTestStartupActivity s = myFixture.getProject().getService(DocAsTestStartupActivity.class);
+        //s.runActivity(myFixture.getProject());
         fileHelper = new FileHelper(myFixture);
     }
 

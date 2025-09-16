@@ -47,7 +47,6 @@ public class MultiSourcePathLightProjectDescriptor extends LightProjectDescripto
         for (Path path : srcPath) {
             srcRoot = doCreateSourceRoot(srcRoot, path.toString());
         }
-        registerSourceRoot(module.getProject(), srcRoot);
         return srcRoot;
     }
 
@@ -55,7 +54,6 @@ public class MultiSourcePathLightProjectDescriptor extends LightProjectDescripto
         VirtualFile srcRoot;
         try {
             srcRoot = root.createChildDirectory(this, srcPath);
-            //cleanSourceRoot(srcRoot);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
