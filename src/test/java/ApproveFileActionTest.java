@@ -1,11 +1,8 @@
 import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.command.undo.UndoManager;
-import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
-import com.intellij.testFramework.EdtTestUtil;
-import com.intellij.util.ThrowableRunnable;
 import docAsTest.action.ApproveFileAction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +17,7 @@ import java.util.Map;
 
 /**
  * Testing a plugin:
- * - test update to check there is no call to slow metode
+ * - test update to check there is no call to slow method
  * - test action
  * - test undo
  *

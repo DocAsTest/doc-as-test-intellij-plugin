@@ -2,7 +2,6 @@ import com.intellij.MultiSourcePathLightProjectDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
 import com.intellij.testFramework.LightProjectDescriptor;
-import docAsTest.DocAsTestStartupActivity;
 import docAsTest.action.SwitchToJavaFileAction;
 import org.junit.Test;
 import org.junit.runner.RunWith;

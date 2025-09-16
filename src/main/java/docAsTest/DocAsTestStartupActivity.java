@@ -1,17 +1,13 @@
 package docAsTest;
 
-import com.intellij.openapi.components.ComponentManager;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.startup.StartupActivity;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.util.Properties;
 
 // https://plugins.jetbrains.com/docs/intellij/plugin-components.html?from=jetbrains.org#project-open
