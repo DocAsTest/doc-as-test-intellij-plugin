@@ -18,7 +18,7 @@ repositories {
         defaultRepositories()
     }
     flatDir {
-        dirs 'lib' // Only for documentationtesting while waiting for it to be in Maven central.
+        dirs 'lib' // Only for doc-as-test while waiting for it to be in Maven central.
     }
 }
 
@@ -31,7 +31,7 @@ dependencies {
     }
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:2.1.0'
-    testImplementation 'org.sfvl:documentationtesting:1.2.0'
+    testImplementation 'com.github.docastest:doc-as-test:2.0.2'
     testImplementation 'com.approvaltests:approvaltests:18.5.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'

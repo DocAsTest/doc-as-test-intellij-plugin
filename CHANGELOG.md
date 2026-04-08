@@ -14,6 +14,13 @@
 
 ### Security
 
+
+## 2.0.1 - 2026-04-08
+
+### Changed
+
+- Move package to com.github.docastest
+
 ## 1.3.0 - 2025-09-16
 
 ### Changed

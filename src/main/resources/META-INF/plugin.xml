@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.github.DocAsTest.doc-as-test-intellij-plugin</id>
     <name>DocAsTestIntellijPlugin</name>
-    <vendor email="sfauvel@gmail.com" url="https://github.com/sfauvel">Sébastien Fauvel</vendor>
+    <vendor email="sfauvel.docastest@gmail.com " url="https://github.com/DocAsTest">Doc as Test</vendor>
 
     <description><![CDATA[
     Allow to manipulate 'approvals' files (approved and received)
@@ -15,7 +15,7 @@
     <idea-version since-build="222" />
 
     <extensions defaultExtensionNs="com.intellij">
-          <projectService serviceImplementation="docAsTest.DocAsTestStartupActivity"/>
+          <projectService serviceImplementation="com.github.docastest.plugin.intellij.DocAsTestStartupActivity"/>
     </extensions>
 
     <actions>
@@ -25,7 +25,7 @@
         </group>
 
         <action id="SwitchToJavaFileAction"
-                class="docAsTest.action.SwitchToJavaFileAction"
+                class="com.github.docastest.plugin.intellij.action.SwitchToJavaFileAction"
                 text="Switch to java file"
                 description="Switch to the test class or method related to the approved or the received file.">
             <add-to-group group-id="DocAsTestActions" anchor="first"/>
@@ -35,7 +35,7 @@
                     second-keystroke="J"/>
         </action>
         <action id="SwitchToApprovedFileAction"
-                class="docAsTest.action.SwitchToApprovedFileAction"
+                class="com.github.docastest.plugin.intellij.action.SwitchToApprovedFileAction"
                 text="Switch to approved file"
                 description="Switch to the approved file related to the test class, the test method or the received file.">
             <add-to-group group-id="DocAsTestActions" anchor="first"/>
@@ -46,7 +46,7 @@
                     second-keystroke="A"/>
         </action>
         <action id="SwitchToReceivedFileAction"
-                class="docAsTest.action.SwitchToReceivedFileAction"
+                class="com.github.docastest.plugin.intellij.action.SwitchToReceivedFileAction"
                 text="Switch to received file"
 
                 description="Switch to the received file related to the test class, the test method or the approved file.">
@@ -58,7 +58,7 @@
                     second-keystroke="R"/>
         </action>
         <action id="ApproveFileAction"
-                class="docAsTest.action.ApproveFileAction"
+                class="com.github.docastest.plugin.intellij.action.ApproveFileAction"
                 text="Approve file"
                 description="Approve selected files or all the files contained in one or more selected folders.">
             <add-to-group group-id="DocAsTestActions" anchor="first"/>
@@ -69,7 +69,7 @@
                     second-keystroke="O"/>
         </action>
         <action id="CompareFileAction"
-                class="docAsTest.action.CompareFileAction"
+                class="com.github.docastest.plugin.intellij.action.CompareFileAction"
                 text="Compare files"
                 description="Compare approved and received files related to the selected one or to the selected class or method.">
             <add-to-group group-id="DocAsTestActions" anchor="first"/>
